@@ -39,15 +39,11 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request -> all(),
-        [
-            'section_name' => 'required|unique:sections'
+        $validate_data = $request -> validate([
+            'section_name' => 'required|unique:sections',
+            'description' => 'required'
         ]);
-
-        if ($validator->fails()) {
-            return redirect() ->back() -> withErrors($validator);
-                        
-        }
+        
         $section = Section::create([
             'section_name' => $request -> section_name,
             'description' => $request -> description,

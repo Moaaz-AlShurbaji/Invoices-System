@@ -34,11 +34,21 @@
 @section('content')
 
 				<!-- row -->
+				@if ($errors->any())
+					<div class="alert alert-danger">
+							<ul>
+								@foreach ($errors->all() as $error)
+									<li>{{ $error }}</li>
+								@endforeach
+							</ul>
+					</div>
+				@endif
 				<div class="row row-sm">
 					<div class="col-xl-12">
 						<div class="card">
 							<div class="card-header pb-0">
 								<div class="d-flex justify-content-between">
+									
 									<div class="col-sm-6 col-md-4 col-xl-3 mg-t-20 mg-sm-t-0">
 										<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-slide-in-right" data-toggle="modal" href="#modaldemo8">إضافة قسم</a>
 									</div>
@@ -89,9 +99,7 @@
 												<div class="form-group">
 													<label for="section_name">اسم القسم</label>
 													<input type="text" class="form-control" name="section_name" id="section_name" placeholder="ادخل اسم القسم">
-													@error('section_name')
-														<small class="text-danger">{{ $message }}</small>
-													@enderror
+													
 													
 												</div>
 												<div class="form-group">
