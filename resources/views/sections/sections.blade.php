@@ -73,8 +73,14 @@
 													<td>{{ $section -> id }}</td>
 													<td>{{ $section -> section_name }}</td>
 													<td>{{ $section -> description }}</td>
-													<td><a class="btn btn-outline-success" href="#">تعديل</a>
-													<a class="btn btn-outline-danger" href="#">حذف</a></td>
+													<td><a class="modal-effect btn btn-outline-success"
+														 data-effect="effect-slide-in-right" data-id = "{{ $section -> id }}"
+														 data-section_name = "{{ $section -> section_name }}" data-description = "{{ $section -> description }}" data-toggle="modal" 
+														 href="#editmodal"><i class="las la-pen"></i></a>
+
+														<a class="modal-effect btn btn-outline-danger" data-effect="effect-slide-in-right"
+														 data-id = "{{ $section -> id }}" data-section_name = "{{ $section -> section_name }}" data-toggle="modal"
+														 href="#deletemodal"><i class="las la-trash"></i></a></td>
 													
 												</tr>
 											@endforeach
@@ -118,6 +124,65 @@
 
 
 					</div>
+
+					<!--edit-->
+					<div class="modal" id="editmodal">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content modal-content-demo">
+								<div class="modal-header">
+									<h6 class="modal-title">تعديل القسم</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+									<form method="post" action="sections/update">
+										@csrf
+										@method('PATCH')
+										<div class="">
+											<div class="form-group">
+												<input type="hidden" name="id" id="id" value="">
+												<label for="section_name">اسم القسم</label>
+												<input type="text" class="form-control" name="section_name" id="section_name">
+												
+												
+											</div>
+											<div class="form-group">
+												<label for="description">الوصف</label>
+												<textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+											</div>
+										</div>
+										<input type="hidden" name="created_by" id="created_by" value="{{ Auth::user()->email }}">
+										<button type="submit" class="btn btn-success mt-3 mb-0">تأكيد</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- delete -->
+                    <div class="modal" id="deletemodal">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-content-demo">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                                                   type="button"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <form action="sections/destroy" method="post">
+                                    {{method_field('delete')}}
+                                    {{csrf_field()}}
+                                    <div class="modal-body">
+                                        <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                                        <input type="hidden" name="id" id="id" value="">
+                                        <input class="form-control" name="section_name" id="section_name" type="text" readonly>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                                        <button type="submit" class="btn btn-danger">تاكيد</button>
+                                    </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+
+
 				<!-- row closed -->
 			</div>
 			<!-- Container closed -->
@@ -145,4 +210,34 @@
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 <script src="{{URL::asset('assets/js/modal.js')}}"></script>
+
+<script>
+	$('#editmodal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget)
+		var id = button.data('id')
+		var section_name = button.data('section_name')
+		var description = button.data('description')
+		var modal = $(this)
+		console.log(section_name);
+		console.log(id);
+		modal.find('#id').val(id);
+		modal.find('#section_name').val(section_name);
+		modal.find('#description').val(description);
+
+	})
+
+	
+</script>
+
+<script>
+	$('#deletemodal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget)
+		var id = button.data('id')
+		var section_name = button.data('section_name')
+		var modal = $(this)
+		modal.find('.modal-body #id').val(id);
+		modal.find('.modal-body #section_name').val(section_name);
+	})
+</script>
+
 @endsection

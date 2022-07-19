@@ -18,7 +18,7 @@ use App\Http\Controllers\SectionController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('auth.login');
 });
 
 

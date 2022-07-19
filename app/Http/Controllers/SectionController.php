@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 
 
 class SectionController extends Controller
@@ -43,7 +43,7 @@ class SectionController extends Controller
             'section_name' => 'required|unique:sections',
             'description' => 'required'
         ]);
-        
+
         $section = Section::create([
             'section_name' => $request -> section_name,
             'description' => $request -> description,
@@ -82,9 +82,21 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request)
     {
-        //
+        $id = $request -> id;
+         $this -> validate($request,[
+            'section_name' => 'required',Rule::unique('sections')->ignore($id),
+            ##Rule unique ignore (we use this if we have a unique value that will not be updated)
+            'description' => 'required'
+        ]);
+
+        $section = Section::FindorFail($id);
+        $section -> update([
+                            "section_name" => $request -> section_name,
+                            "description" => $request -> description
+                           ]);
+        return redirect() -> back() -> with(["message" => "تم تعديل القسم بنجاح"]);
     }
 
     /**
@@ -93,8 +105,11 @@ class SectionController extends Controller
      * @param  \App\Models\Section  $section
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request -> id;
+        $section = Section::FindorFail($request -> id);
+        $section -> delete();
+        return redirect() -> back();
     }
 }
