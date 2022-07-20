@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('invoices', InvoicesController::class);
 Route::resource('sections', SectionController::class);
+Route::resource('products', ProductController::class);
 
 Route::get('/{page}', [AdminController::class,'index']) -> middleware('auth');
 
