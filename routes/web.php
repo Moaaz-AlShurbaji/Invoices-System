@@ -17,6 +17,9 @@ use App\Http\Controllers\SectionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/app', function () {
+    dd(resolve('request'));
+});
 
 Route::get('/', function () {
     return view('auth.login');

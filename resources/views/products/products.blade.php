@@ -22,9 +22,16 @@
 						</div>
 					</div>
 				</div>
+
+				@if(session()->has('message'))
+					<div class="alert alert-success" role="alert">
+						{{ session()->get('message') }}
+					</div>	
+				@endif
 				<!-- breadcrumb -->
 @endsection
 @section('content')
+
 				<!-- row -->
 				@if ($errors->any())
 					<div class="alert alert-danger">
@@ -85,6 +92,46 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="modal" id="modaldemo8">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content modal-content-demo">
+									<div class="modal-header">
+										<h6 class="modal-title">إضافة منتج</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+									</div>
+									<div class="modal-body">
+										<form method="post" action="{{ route('products.store')}}">
+											@csrf
+											<div class="">
+												<div class="form-group">
+													<label for="section_name">اسم المنتج</label>
+													<input type="text" class="form-control" name="product_name" id="section_name" placeholder="ادخل اسم المنتج">	
+												</div>
+												<div class="form-group">
+													<label for="section_id">اسم القسم</label>
+													<select name="section_id" id="section_id" class="form-control">
+														<option value="" selected disabled>--اختر القسم--</option>
+														@foreach($sections as $section)
+															<option value="{{ $section -> id }}">{{ $section -> section_name }}</option>
+														@endforeach
+													</select>
+
+												</div>
+												<div class="form-group">
+													<label for="description">الوصف</label>
+													<textarea class="form-control" name="description" id="description" cols="30" rows="10"></textarea>
+												</div>
+											</div>
+											<!--<input type="hidden" name="created_by" id="created_by" value="{{ Auth::user()->email }}"> -->
+											<button type="submit" class="btn btn-success mt-3 mb-0">تأكيد</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
 					</div>
 				<!-- row closed -->
 			</div>
@@ -111,4 +158,5 @@
 <script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+<script src="{{URL::asset('assets/js/modal.js')}}"></script>
 @endsection
