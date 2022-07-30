@@ -69,21 +69,24 @@
 										</thead>
 										<tbody>
 											
+											@foreach($products as $product)
 												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
+													<td>{{ $product -> id }}</td>
+													<td>{{ $product -> product_name }}</td>
+													<td>{{ $product -> section -> section_name }}</td>
+													<td>{{ $product -> description }}</td>
 													<td><a class="modal-effect btn btn-outline-success"
-														 data-effect="effect-slide-in-right" data-id = ""
-														 data-section_name = "" data-description = "" data-toggle="modal" 
-														 href="#editmodal"><i class="las la-pen"></i></a>
+														data-effect="effect-slide-in-right" data-id = ""
+														data-section_name = "" data-description = "" data-toggle="modal" 
+														href="#editmodal"><i class="las la-pen"></i></a>
 
 														<a class="modal-effect btn btn-outline-danger" data-effect="effect-slide-in-right"
-														 data-id = "" data-section_name = "" data-toggle="modal"
-														 href="#deletemodal"><i class="las la-trash"></i></a></td>
+														data-id = "" data-section_name = "" data-toggle="modal"
+														href="#deletemodal"><i class="las la-trash"></i></a></td>
 													
 												</tr>
+											@endforeach
+												
 											
 											
 							

@@ -9,4 +9,9 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = ["product_name","description","section_id"];
+
+    public function section()
+    {
+        return $this -> belongsTo('App\Models\Section');
+    }
 }
