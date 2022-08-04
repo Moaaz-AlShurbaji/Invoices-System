@@ -35,11 +35,14 @@
 									<h4 class="card-title mg-b-0">جدول الفواتير</h4>
 									<i class="mdi mdi-dots-horizontal text-gray"></i>
 								</div>
+								<div class="col-sm-6 col-md-4 col-xl-3 mg-t-20 mg-sm-t-0">
+									<a class="modal-effect btn btn-outline-primary btn-block" href="invoices/create">إضافة فاتورة</a>
+								</div>
 								
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table id="example" class="table key-buttons text-md-nowrap">
+									<table class="table text-md-nowrap" id="example1">
 										<thead>
 											<tr>
 												<th class="border-bottom-0">#</th>

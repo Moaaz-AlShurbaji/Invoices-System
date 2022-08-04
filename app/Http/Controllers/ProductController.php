@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -107,5 +108,12 @@ class ProductController extends Controller
         $product = Product::FindorFail($id);
         $product -> delete();
         return redirect() -> back() -> with('message','تم الحذف بنجاح');
+    }
+
+    public function getProducts($id)
+    {
+        #$products = Product::select('id','product_name') -> where("section_id",$id) -> get();
+        $products = DB::table('products') -> where('section_id',$id) -> pluck('product_name','id');
+        return json_encode($products);
     }
 }

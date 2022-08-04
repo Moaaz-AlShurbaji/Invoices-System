@@ -33,6 +33,8 @@ Route::resource('invoices', InvoicesController::class);
 Route::resource('sections', SectionController::class);
 Route::resource('products', ProductController::class);
 
+Route::get('section/{id}', [ProductController::class,'getProducts']);
+
 Route::get('/{page}', [AdminController::class,'index']) -> middleware('auth');
 
 
