@@ -26,7 +26,7 @@ Route::get('/', function () {
 });
 
 
-Auth::routes(['register' => false]);
+Auth::routes(['register']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::resource('invoices', InvoicesController::class);
