@@ -60,21 +60,33 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>Tiger Nixon</td>
-												<td>System Architect</td>
-												<td>Edinburgh</td>
-												<td>61</td>
-												<td>2011/04/25</td>
-												<td>$320,800</td>
-												<td>Tiger Nixon</td>
-												<td>System Architect</td>
-												<td>Edinburgh</td>
-												<td>61</td>
-												<td>2011/04/25</td>
-												<td>$320,800</td>
+											@foreach ($invoices as $invoice)
 												
-											</tr>
+												<tr>
+													<td>{{ $invoice -> id }}</td>
+													<td>{{ $invoice -> invoice_number }}</td>
+													<td>{{ $invoice -> invoice_date }}</td>
+													<td>{{ $invoice -> due_date }}</td>
+													<td>{{ $invoice -> product }}</td>
+													<td><a href="{{ url('InvoicesDetails')}}/{{ $invoice -> id }}">
+														{{ $invoice -> section -> section_name }}
+														</a>
+													</td>
+													<td>{{ $invoice -> discount }}</td>
+													<td>{{ $invoice -> rate_vat }}</td>
+													<td>{{ $invoice -> value_vat }}</td>
+													<td>{{ $invoice -> total }}</td>
+													@if( $invoice -> value_statues == 1)
+														<td class="text-success">{{ $invoice -> status }}</td>
+													@elseif($invoice -> value_statues == 2)
+														<td class="text-danger">{{ $invoice -> status }}</td>
+													@else
+														<td class="text-warning">{{ $invoice -> status }}</td>		
+													@endif
+													<td>{{ $invoice -> note }}</td>
+													
+												</tr>
+											@endforeach
 											
 										</tbody>
 									</table>
